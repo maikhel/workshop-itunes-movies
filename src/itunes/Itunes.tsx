@@ -13,31 +13,31 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectEbooks, Ebook, fetchEbooks } from './itunesSlice';
+import { selectMovies, Movie, fetchMovies } from './itunesSlice';
 
-export function EbookTable({ ebooks }: { ebooks: Ebook[] }) {
+export function MovieTable({ movies }: { movies: Movie[] }) {
   return (
     <Table variant="simple">
-      <TableCaption>Imperial to metric conversion factors</TableCaption>
+      <TableCaption>List of movies from iTunes</TableCaption>
       <Thead>
         <Tr>
           <Th>Image</Th>
           <Th>Track Name</Th>
-          <Th>Artist Name</Th>
-          <Th>Rating</Th>
+          <Th>Director</Th>
+          <Th>Country</Th>
+          <Th>Price</Th>
         </Tr>
       </Thead>
       <Tbody>
-        {ebooks.map((ebook) => (
-          <Tr key={ebook.trackId}>
+        {movies.map((movie) => (
+          <Tr key={movie.trackId}>
             <Td>
-              <Image src={ebook.artworkUrl100} alt="Segun Adebayo" />
+              <Image src={movie.artworkUrl100} alt="Movie image" />
             </Td>
-            <Td>{ebook.trackName}</Td>
-            <Td>{ebook.artistName}</Td>
-            <Td isNumeric>
-              {ebook.averageUserRating} ({ebook.userRatingCount})
-            </Td>
+            <Td>{movie.trackName}</Td>
+            <Td>{movie.artistName}</Td>
+            <Td>{movie.country}</Td>
+            <Td isNumeric>{movie.trackPrice}</Td>
           </Tr>
         ))}
       </Tbody>
@@ -46,7 +46,7 @@ export function EbookTable({ ebooks }: { ebooks: Ebook[] }) {
 }
 
 export function Itunes() {
-  const ebooks = useSelector(selectEbooks);
+  const movies = useSelector(selectMovies);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   return (
@@ -58,12 +58,12 @@ export function Itunes() {
         />
         <Button
           colorScheme="blue"
-          onClick={() => dispatch(fetchEbooks(searchTerm))}
+          onClick={() => dispatch(fetchMovies(searchTerm))}
         >
           Search
         </Button>
       </Stack>
-      <EbookTable ebooks={ebooks} />
+      <MovieTable movies={movies} />
     </Stack>
   );
 }
