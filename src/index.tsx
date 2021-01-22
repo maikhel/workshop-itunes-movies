@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
-      <App title="Ebooks app" />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider>
+        <App title="Movies app" />
+      </ChakraProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
